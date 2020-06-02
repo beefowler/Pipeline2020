@@ -1,0 +1,24 @@
+#! /bin/bash
+
+#SBATCH --partition=compute
+#SBATCH --job-name=qiime_denoising
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=bfowler@whoi.edu
+#SBATCH --ntasks=2
+#SBATCH --nodes=2
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=20000
+#SBATCH --time=4:00:00 
+#SBATCH --output=Denoise2.log
+#export OMP_NUM_THREADS=1
+
+#This script processes the data that has been imported into qiime. 
+#It will dereplicate and filter chimeras. For now, we are not truncating. 
+ 
+
+
+qiime dada2 denoise-pyro \
+--i-demultiplexed-seqs MVCO_import.qza \
+--p-trunc-len 0 \
+--output-dir denoise_out
+
